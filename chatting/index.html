@@ -1,0 +1,331 @@
+<html>
+    <head>
+        <title>Chatting</title>
+        <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" 
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" 
+        crossorigin="anonymous"></script>
+        <link rel="icon" src="/img/logo.png">
+        <style>
+            .div {
+                display: flex;
+                justify-content: center;
+            }
+            .C_div1 {
+                border: 4px solid #bcbcbc;
+                border-radius: 25px;
+                margin: 0 auto;
+                width: 500px;
+                height: 1000px;
+                background-color: aliceblue;
+            }
+            .C_div2 {
+                border: 4px solid #bcbcbc;
+                border-radius: 25px;
+                margin: 15px auto;
+                width: 450px;
+                height: 120px;
+                background-color: aliceblue;
+                display: flex;
+                justify-content: space-between;
+            }
+            .C_div3 {
+                border: 4px solid #bcbcbc;
+                border-radius: 25px;
+                margin: 15px auto;
+                width: 450px;
+                height: 670px;
+                background-color: aliceblue;
+                position: relative;
+            }
+            .C_div4 {
+                border: 4px solid #bcbcbc;
+                border-radius: 25px;
+                margin: 15px auto;
+                width: 450px;
+                height: 120px;
+                background-color: aliceblue;
+                display: flex;
+            }
+            .C_div5 {
+                display: flex;
+                flex-direction: column;
+            }
+            .select {
+                border: 2px solid #bcbcbc;
+                border-radius: 10px;
+                margin: 8px;
+                height: 30px;
+                background-color: white;
+                font-size: 0.8em;
+                resize: none;
+            }
+            .C_img2 {
+                width: 60px;
+                margin: 5px auto;
+            }
+            .textarea {
+                border: 2px solid #bcbcbc;
+                border-radius: 10px;
+                margin: 8px;
+                background-color: white;
+                font-size: 1.3em;
+                resize: none;
+            }
+            .button {
+                border: none;
+                border-radius: 10px;
+                margin: 8px;
+                padding: 10px;
+                font-size: 1.3em;
+                color: aliceblue;
+                background-color: #ff7d97d3;
+            }
+
+            .wrap .chat {
+                display: flex;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .wrap .chat .icon {
+                position: relative;
+                overflow: hidden;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: #eee;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .wrap .chat .icon .i_i {
+                position: absolute;
+                /* top: 10px; */
+                /* left: 50%; */
+                font-size: 2.5rem;
+                color: #aaa;
+                transform: translateX(-50%);
+            }
+
+            .wrap .chat .textbox {
+                position: relative;
+                display: inline-block;
+                max-width: calc(100% - 70px);
+                padding: 10px;
+                margin-top: 7px;
+                font-size: 13px;
+                border-radius: 10px;
+            }
+
+            .wrap .chat .textbox::before {
+                position: absolute;
+                display: block;
+                top: 0;
+                font-size: 1.5rem;
+            }
+
+            .wrap .ch1 .textbox {
+                margin-left: 20px;
+                background-color: #ddd;
+            }
+
+            .wrap .ch1 .textbox::before {
+                left: -15px;
+                content: "◀";
+                color: #ddd;
+            }
+
+            .wrap .ch2 {
+                flex-direction: row-reverse;
+            }
+
+            .wrap .ch2 .textbox {
+                margin-right: 20px;
+                background-color: #ffda8fb8;
+            }
+
+            .wrap .ch2 .textbox::before {
+                right: -15px;
+                content: "▶";
+                color: #ffda8fb8;
+            }
+            .C_name{
+                width: auto;
+                text-align: center;
+            }
+
+            .M_div1 {
+                border: none;
+                border-radius: 24px;
+                margin: 0 auto;
+                width: 300px;
+                height: 670px;
+                background-color: #ffda8fcb;
+                display: none;
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+            .M_div1 .chat {
+                display: flex;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .M_div1 .chat .icon {
+                position: relative;
+                overflow: hidden;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: #eee;
+                flex-direction: column;
+            }
+
+            .M_div1 .chat .icon .i_i {
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                font-size: 2.5rem;
+                color: #aaa;
+                transform: translateX(-50%);
+            }
+            .M_div1 .chat .textbox {
+                position: relative;
+                display: inline-block;
+                max-width: calc(100% - 70px);
+                padding: 10px;
+                margin-top: 7px;
+                font-size: 13px;
+                border-radius: 10px;
+            }
+            .M_div1 .ch1 .textbox {
+                margin-left: 20px;
+                background-color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="div">
+            <div class="C_div1">
+                <div class="C_div2">
+                    <img src="/img/exit.png" style="margin: 40px;" alt="">
+                    <img src="/img/logo.png" style="width: 20px height: 20px; margin: 15px;">
+                    <img src="/img/menu.png" style="margin: 30px;" alt="" onclick="menu();">
+                </div>
+                <div class="C_div3">
+                    <div class="wrap">
+                        <div class="chat ch1">
+                            <div>
+                                <div class="icon">
+                                    <i class="i_i"></i>
+                                </div>
+                                <div class="C_name">민지</div>
+                            </div>
+                            <div class="textbox">얘들아, F-4연습실로 오면 돼!</div>
+                        </div>
+                        <div class="chat ch1">
+                            <div>
+                                <div class="icon">
+                                    <i class="i_i"></i>
+                                </div>
+                                <div class="C_name">다니엘</div>
+                            </div>
+                            <div class="textbox">언니 저 좀 늦을 것 같아요 죄송해요!ㅠㅠ</div>
+                        </div>
+                        <div class="chat ch2">
+                            <div>
+                                <div class="icon">
+                                    <i class="i_i"></i>
+                                </div>
+                                <div class="C_name">나</div>
+                            </div>
+                            <div class="textbox">저는 벌써 도착했어요~~!</div>
+                        </div>
+                        <div class="chat ch1">
+                            <div>
+                                <div class="icon">
+                                    <i class="i_i"></i>
+                                </div>
+                                <div class="C_name">해린</div>
+                            </div>
+                            <div class="textbox">저는 시간에 맞춰서 갈 것 같아요!</div>
+                        </div>
+                    </div>
+                    <div class="M_div1" id="M_div1">
+                        <div>
+                            <div class="chat ch1">
+                                <div>
+                                    <div class="icon">
+                                        <i class="i_i"></i>
+                                    </div>
+                                    <div class="C_name">나</div>
+                                </div>
+                                <div class="textbox">뉴진스 최고</div>
+                            </div>
+                            <div class="chat ch1">
+                                <div>
+                                    <div class="icon">
+                                        <i class="i_i"></i>
+                                    </div>
+                                    <div class="C_name">민지</div>
+                                </div>
+                                <div class="textbox">오늘도 열심히!</div>
+                            </div>
+                            <div class="chat ch1">
+                                <div>
+                                    <div class="icon">
+                                        <i class="i_i"></i>
+                                    </div>
+                                    <div class="C_name">다니엘</div>
+                                </div>
+                                <div class="textbox">오늘도 열심히!</div>
+                            </div>
+                            <div class="chat ch1">
+                                <div>
+                                    <div class="icon">
+                                        <i class="i_i"></i>
+                                    </div>
+                                    <div class="C_name">해린</div>
+                                </div>
+                                <div class="textbox">오늘도 열심히!</div>
+                            </div>
+                            <div class="chat ch1">
+                                <div>
+                                    <div class="icon">
+                                        <i class="i_i"></i>
+                                    </div>
+                                    <div class="C_name">혜인</div>
+                                </div>
+                                <div class="textbox">오늘도 열심히!</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="C_div4">
+                    <div class="C_div5">
+                        <img src="/img/icon.png" class="C_img2">
+                        <select class="select">
+                            <option value="다니엘">다니엘</option>
+                            <option value="하니">하니</option>
+                            <option value="민지">민지</option>
+                            <option value="해린">해린</option>
+                            <option value="혜인">혜인</option>
+                        </select>
+                    </div>
+                    <textarea class=textarea type="text" name="" id="" cols="30" rows="3"></textarea>
+                    <button class="button">send</button>
+                </div>
+                
+            </div>
+            
+        </div>
+        <script>
+            function menu() {
+                let starPeople = document.getElementById("M_div1");
+                starPeople.style.display = "block";
+            }
+        </script>
+    </body>
+</html>

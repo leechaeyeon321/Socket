@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>socket</title>
+        <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" 
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" 
+        crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+        <button onclick="hello();">hello</button>
+        <button onclick="study();">study</button>
+        <button onclick="bye();">bye</button>
+        <!-- ---------------------------------- -->
+        <h6>하나의 함수로 소켓 사용하기</h6>
+        <button onclick="btnSend('hello')">hello</button>
+        <button onclick="btnSend('study')">study</button>
+        <button onclick="btnSend('bye')">bye</button>
+        <script>
+            let socket = io.connect();
+            function hello() {
+                socket.emit('hello_o', 'client hello');
+            }
+            function study() {
+                socket.emit('study', 'client study');
+            }
+            function bye() {
+                socket.emit('bye', 'client bye');
+            }
+            socket.on('response', (msg) => {
+                console.log(msg);
+            })
+            /* ------------------------------------ */
+            const btnSend = (msg) => {
+                socket.emit('send', msg)
+            }
+        </script>
+    </body>
+</html>

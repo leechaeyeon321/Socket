@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>socket</title>
+        <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" 
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" 
+        crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <h2>Socket.io 사용하기</h2>
+        <script>
+            //메세지 보내기: socket.emit('이벤트명', data)
+            //메세지 받기 : socket.on('이벤트명', (data) =>{})
+
+            let socket = io.connect();
+            socket.on('connect', () => {
+                console.log('server connected');
+            })
+            socket.on('welcome', (data) => {
+            //data: {msg: ''}
+            console.log(data.msg)
+            socket.emit('response', 'hello')
+            })
+
+            
+        </script>
+    </body>
+</html>
