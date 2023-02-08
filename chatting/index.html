@@ -165,43 +165,83 @@
                 position: absolute;
                 top: 0;
                 right: 0;
+                z-index: 1;
+            }
+            .M_div2 {
+                border: none;
+                border-radius: 24px;
+                margin: 15 auto;
+                width: 250px;
+                height: 60px;
+                background-color: #ff7d97ad;
+                color: black;
+                display: flex;
+                justify-content: space-between;
+            }
+            .menuExit {
+                width: 25px;
+                height: 25px;
+                margin-left: 20px;
+                margin-top: 30px;
+                transform: translateY(-50%);
+                font-weight: bolder;
+            }
+            .M_div2_1 {
+                position: relative;
+                text-align: center;
+                margin-right: 90px;
+                margin-top: 35px;
+                transform: translateY(-50%);
+                font-weight: bolder;
+            }
+            .M_div3 {
+                border: none;
+                border-radius: 24px;
+                margin: 15 auto;
+                width: 250px;
+                height: 570px;
+                background-color: #ff7d97ad;
             }
             .M_div1 .chat {
                 display: flex;
                 align-items: flex-start;
-                padding: 20px;
+                padding: 16px;
             }
 
             .M_div1 .chat .icon {
                 position: relative;
                 overflow: hidden;
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
-                background-color: #eee;
+                background-color: rgba(240, 248, 255, 0.716);
                 flex-direction: column;
             }
 
             .M_div1 .chat .icon .i_i {
                 position: absolute;
-                top: 10px;
+                top: 5px;
                 left: 50%;
                 font-size: 2.5rem;
                 color: #aaa;
                 transform: translateX(-50%);
+            }
+            .M_div1 .chat .C_name {
+                margin-top: 3px;
+                font-size: 0.8rem;
             }
             .M_div1 .chat .textbox {
                 position: relative;
                 display: inline-block;
                 max-width: calc(100% - 70px);
                 padding: 10px;
-                margin-top: 7px;
+                margin-top: 5px;
                 font-size: 13px;
                 border-radius: 10px;
             }
             .M_div1 .ch1 .textbox {
                 margin-left: 20px;
-                background-color: #ddd;
+                background-color: rgba(221, 221, 221, 0.307);
             }
         </style>
     </head>
@@ -253,7 +293,11 @@
                         </div>
                     </div>
                     <div class="M_div1" id="M_div1">
-                        <div>
+                        <div class="M_div2">
+                            <img src="/img/exit.png" class="menuExit" onclick="menuExit();" alt="">
+                            <div class="M_div2_1">대화 상대</div>
+                        </div>
+                        <div class="M_div3">
                             <div class="chat ch1">
                                 <div>
                                     <div class="icon">
@@ -279,7 +323,7 @@
                                     </div>
                                     <div class="C_name">다니엘</div>
                                 </div>
-                                <div class="textbox">오늘도 열심히!</div>
+                                <div class="textbox">우리 너무 귀여워</div>
                             </div>
                             <div class="chat ch1">
                                 <div>
@@ -297,7 +341,7 @@
                                     </div>
                                     <div class="C_name">혜인</div>
                                 </div>
-                                <div class="textbox">오늘도 열심히!</div>
+                                <div class="textbox">항상 목관리를 해야 한다.</div>
                             </div>
                         </div>
                         
@@ -325,6 +369,10 @@
             function menu() {
                 let starPeople = document.getElementById("M_div1");
                 starPeople.style.display = "block";
+            }
+            function menuExit(){
+                let starPeople = document.getElementById("M_div1");
+                starPeople.style.display = "none";
             }
         </script>
     </body>
